@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:me/home_page.dart';
+import 'package:me/home/home_page.dart';
+import 'package:me/home/home_page_provider.dart';
 import 'package:me/profile_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => HomePageProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
+
+// Define your routes
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -12,10 +23,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      title: 'Haojun\'s space',
+      home: const HomePage(),
       routes: {
-        '/': (context) => HomePage(),
-        '/profile': (context) => ProfilePage(),
+        '/profile': (context) => const ProfilePage(),
       },
     );
   }
