@@ -46,8 +46,8 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double darwerCollapseWidth = size.width * 0.07;
-    double darwerExpandWidth = size.width * 0.2;
+    double darwerCollapseWidth = size.width * 0.05;
+    double darwerExpandWidth = size.width * 0.15;
 
     HomePageProvider provider = Provider.of<HomePageProvider>(context);
 
@@ -59,7 +59,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
         provider.collapseDrawer();
       },
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 400),
         curve: Curves.easeInOut,
         width: provider.isExpanded ? darwerExpandWidth : darwerCollapseWidth,
         color: deepBlue,
@@ -111,8 +111,12 @@ class NavigationLink extends StatelessWidget {
   Widget build(BuildContext context) {
     HomePageProvider provider = Provider.of<HomePageProvider>(context);
 
+    Size size = MediaQuery.of(context).size;
+    double iconSize = size.width * 0.02;
+    double darwerCollapseWidth = size.width * 0.05;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 20.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: deepBlue,
@@ -125,8 +129,9 @@ class NavigationLink extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(width: 5),
-            Icon(icon, color: Colors.white),
+            //TODO: fix this
+            SizedBox(width: (darwerCollapseWidth) / 8),
+            Icon(icon, color: Colors.white, size: iconSize),
             showText ? const SizedBox(width: 20) : const SizedBox.shrink(),
             showText
                 ? Text(

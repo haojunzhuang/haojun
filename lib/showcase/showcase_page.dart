@@ -7,7 +7,11 @@ class ShowcasePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(children: [
-        TextButton(onPressed: () {}, child: const Text('R4B Writer\'s blog'))
+        TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/blog');
+            },
+            child: const Text('R4B Writer\'s blog'))
       ]),
     );
   }

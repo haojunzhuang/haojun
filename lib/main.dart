@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:me/home/home_page.dart';
 import 'package:me/home/home_page_provider.dart';
 import 'package:me/profile_page.dart';
+import 'package:me/showcase/blog/blog_home.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       title: 'Haojun\'s space',
       home: const HomePage(),
       routes: {
-        '/profile': (context) => const ProfilePage(),
+        '/blog': (context) => const BlogHome(),
       },
     );
   }
