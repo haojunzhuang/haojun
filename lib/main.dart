@@ -24,20 +24,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-        data: ThemeData(
-            textSelectionTheme: const TextSelectionThemeData(
-          cursorColor: Colors.yellow,
-          selectionColor: Colors.green,
-          selectionHandleColor: Colors.blue,
-        )),
-        child: MaterialApp(
-          title: 'Haojun\'s space',
-          home: const HomePage(),
-          routes: {
-            '/blog': (context) => const BlogHome(),
-            '/blog/monogamy': (context) => const BlogMonogamy(),
-          },
-        ));
+    return MaterialApp(
+      title: 'Haojun\'s space',
+      home: const HomePage(),
+      routes: {
+        '/blog': (context) => const BlogHome(),
+        '/blog/monogamy': (context) => const BlogMonogamy(),
+      },
+    );
   }
 }
