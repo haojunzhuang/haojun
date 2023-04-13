@@ -48,16 +48,17 @@ class BlogHome extends StatelessWidget {
                               // runSpacing: 20,
                               children: [
                                 TiltCard(
-                                    child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [Text('Hello')])),
+                                  title: 'Monogamy and Polygamy',
+                                  image: 'animals.jpg',
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, '/blog/monogamy');
+                                  },
+                                ),
                                 TiltCard(
-                                  child: Container(
-                                    width: 300,
-                                    height: 200,
-                                    color: Colors.blue,
-                                  ),
+                                  title: 'Dart',
+                                  image: 'birdlove.jpg',
+                                  onTap: () {},
                                 ),
                               ]),
                         )))),
