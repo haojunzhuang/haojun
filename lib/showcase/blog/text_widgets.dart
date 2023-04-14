@@ -5,9 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 final selectableTheme = ThemeData(
     textSelectionTheme: const TextSelectionThemeData(
-  cursorColor: Colors.yellow,
-  selectionColor: Colors.green,
-  selectionHandleColor: Colors.blue,
+  selectionColor: Color.fromRGBO(218, 123, 210, 0.725),
 ));
 
 class BodyText extends StatelessWidget {
@@ -17,9 +15,16 @@ class BodyText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-        data: selectableTheme,
-        child: SelectableText.rich(TextSpan(text: text), style: body));
+    final size = MediaQuery.of(context).size;
+
+    return Padding(
+        padding: EdgeInsets.all(size.width * 0.02),
+        child: Theme(
+            data: selectableTheme,
+            child: SelectableText.rich(
+                textAlign: TextAlign.justify,
+                TextSpan(text: text),
+                style: body)));
   }
 }
 
@@ -34,19 +39,28 @@ class BodyTextWithSingleHyperlink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-        data: selectableTheme,
-        child: SelectableText.rich(TextSpan(children: [
-          TextSpan(text: a, style: body),
-          TextSpan(
-            text: b,
-            style: body,
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                launch(link);
-              },
-          ),
-          TextSpan(text: c, style: body),
-        ])));
+    final size = MediaQuery.of(context).size;
+
+    return Padding(
+        padding: EdgeInsets.all(size.width * 0.02),
+        child: Theme(
+            data: selectableTheme,
+            child: SelectableText.rich(
+                textAlign: TextAlign.justify,
+                TextSpan(children: [
+                  TextSpan(
+                    text: a,
+                    style: body,
+                  ),
+                  TextSpan(
+                    text: b,
+                    style: bodyHyperlink,
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        launch(link);
+                      },
+                  ),
+                  TextSpan(text: c, style: body),
+                ]))));
   }
 }

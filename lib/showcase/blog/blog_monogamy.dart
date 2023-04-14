@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:me/globals.dart';
 import 'package:me/showcase/blog/image.dart';
@@ -15,11 +14,13 @@ class BlogMonogamy extends StatelessWidget {
         body: Container(
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.2, vertical: 50),
       child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ImageWithCredit(
+                name: 'animals.jpg',
                 width: size.width * 0.6,
                 credit:
                     'https://www.youtube.com/watch?v=bxQdLhOQf5c&embeds_euri=https%3A%2F%2Fwww.psychmechanics.com%2F&source_ve_path=MzY5MjUsMjM4NTE&feature=emb_title'),
@@ -45,7 +46,8 @@ class BlogMonogamy extends StatelessWidget {
                         'reported that early humans including Qafzeh 9 and Neanderthals have low Second-to-forth digit ratios when compared to modern humans. This ratio is a measurement of the relative length between index finger and right finger, which is also a biomarker that covaries with intra-sexual competition. A low digit ratio indicates that a certain species is more likely to be polygynous, as was the case with ancient humans.',
                         'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3081742/')),
                 ImageWithCredit(
-                    width: size.width * 0.3,
+                    name: 'fingers.jpg',
+                    width: size.width * 0.15,
                     credit: 'https://www.pnas.org/doi/10.1073/pnas.1108312108'),
               ],
             ),
@@ -67,6 +69,7 @@ class BlogMonogamy extends StatelessWidget {
                       'With the emergence of kingdoms and nations, legislation on monogamous marriage became prevalent. Marriage laws became a great way for rulers to maintain order between people and to control the number of newborns. Additionally, it is important to note that the distribution of resources has changed significantly. Modern human societies tend to have a more equal distribution of resources due to industrial revolution and economic development. In the past, a woman might have been better off choosing a polygynous marriage with a wealthy man over a monogamous marriage with an average man due to the significant difference in the resources they could provide. However, in a more equally distributed society, different classes and sexes have more equal access to basic goods like food and health care. As a result, even an average-wealthy couple can enjoy a fair life through wages, making it unnecessary to join a polygynous marriage for resources.'),
                 ),
                 ImageWithCredit(
+                    name: 'poverty.png',
                     width: size.width * 0.3,
                     credit:
                         'https://www.vox.com/the-big-idea/2016/12/23/14062168/history-global-conditions-charts-life-span-poverty')
