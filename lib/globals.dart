@@ -25,8 +25,15 @@ const TextStyle bodyHyperlink = TextStyle(
 );
 
 const TextStyle bodySmall = TextStyle(
-  fontSize: 15,
+  fontSize: 12,
   fontWeight: FontWeight.normal,
   color: Colors.grey,
   fontFamily: 'Roboto',
+);
+
+const TextStyle caption = TextStyle(
+  fontSize: 15,
+  fontWeight: FontWeight.bold,
+  color: Colors.black,
+  fontFamily: 'Chivo Mono',
 );

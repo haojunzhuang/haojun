@@ -63,8 +63,8 @@ class _TiltCardState extends State<TiltCard>
               widget.onTap();
             },
             child: Container(
-                width: 400,
-                height: 300,
+                width: 350,
+                height: 280,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(

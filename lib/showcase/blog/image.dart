@@ -7,12 +7,14 @@ class ImageWithCredit extends StatelessWidget {
       this.width,
       required this.credit,
       this.height,
+      this.title,
       super.key});
 
   final String name;
   final double? width;
   final String credit;
   final double? height;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class ImageWithCredit extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset('assets/images/' + name),
+          title != null ? Text(title!, style: caption) : Container(),
           Text('Photo credit: ' + credit, style: bodySmall),
         ],
       ),

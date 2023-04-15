@@ -47,19 +47,27 @@ class BlogHome extends StatelessWidget {
                               spacing: 100,
                               // runSpacing: 20,
                               children: [
-                                TiltCard(
-                                  title: 'Monogamy and Polygamy',
-                                  image: 'animals.jpg',
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, '/blog/monogamy');
-                                  },
+                                Padding(
+                                  padding: EdgeInsets.all(30),
+                                  child: TiltCard(
+                                    title: 'Monogamy and Polygamy',
+                                    image: 'animals.jpg',
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, '/blog/monogamy');
+                                    },
+                                  ),
                                 ),
-                                TiltCard(
-                                  title: 'Dart',
-                                  image: 'birdlove.jpg',
-                                  onTap: () {},
-                                ),
+                                Padding(
+                                    padding: EdgeInsets.all(30),
+                                    child: TiltCard(
+                                      title: 'Animals Who Smile',
+                                      image: 'smiles.png',
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, '/blog/smile');
+                                      },
+                                    )),
                               ]),
                         )))),
           )

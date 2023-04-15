@@ -47,13 +47,14 @@ class BlogMonogamy extends StatelessWidget {
                         'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3081742/')),
                 ImageWithCredit(
                     name: 'fingers.jpg',
+                    title: 'Example of how digit ratios can be compared',
                     width: size.width * 0.15,
                     credit: 'https://www.pnas.org/doi/10.1073/pnas.1108312108'),
               ],
             ),
             const BodyTextWithSingleHyperlink(
                 'Apart from archaeological evidence, the practice of polygyny can also be observed in some existing tribes around the world. For instance, the Maasai tribe, which is found in Kenya and Tanzania, traditionally practices polygyny. Women in a polygynous marriage ',
-                'refer to other as “co-wifes”',
+                'refer to other as “co-wifes” ',
                 'and work together to raise each other’s children. This lifestyle is considered normal in their culture. Such tribes provide evidence that polygynous marriages are promoted in primitive human societies.',
                 'https://blog.siasat.pk/maasai-marriage-story/'),
             const BodyTextWithSingleHyperlink(
@@ -66,22 +67,25 @@ class BlogMonogamy extends StatelessWidget {
               children: [
                 const Expanded(
                   child: BodyText(
-                      'With the emergence of kingdoms and nations, legislation on monogamous marriage became prevalent. Marriage laws became a great way for rulers to maintain order between people and to control the number of newborns. Additionally, it is important to note that the distribution of resources has changed significantly. Modern human societies tend to have a more equal distribution of resources due to industrial revolution and economic development. In the past, a woman might have been better off choosing a polygynous marriage with a wealthy man over a monogamous marriage with an average man due to the significant difference in the resources they could provide. However, in a more equally distributed society, different classes and sexes have more equal access to basic goods like food and health care. As a result, even an average-wealthy couple can enjoy a fair life through wages, making it unnecessary to join a polygynous marriage for resources.'),
+                      'With the emergence of kingdoms and nations, legislation on monogamous marriage became common. Marriage laws became a great way for rulers to maintain order between people and to control the number of newborns. Additionally, it is important to note that the distribution of resources has changed significantly. Modern human societies tend to have a more equal distribution of resources due to industrial revolution and economic development. In the past, a woman might have been better off choosing a polygynous marriage with a wealthy man over a monogamous marriage with an average man due to the significant difference in the resources they could provide. However, in a more equally distributed society, different classes and sexes have more access to basic goods like food and health care. As a result, even an average-wealthy couple can enjoy a fair life through wages, making it unnecessary to join a polygynous marriage for resources.'),
                 ),
-                ImageWithCredit(
-                    name: 'poverty.png',
-                    width: size.width * 0.3,
-                    credit:
-                        'https://www.vox.com/the-big-idea/2016/12/23/14062168/history-global-conditions-charts-life-span-poverty')
               ],
             ),
+            ImageWithCredit(
+                name: 'poverty.png',
+                title:
+                    'The percentage of people living in poverty has decreased significantly. The society is relatively more equal now.',
+                width: size.width * 0.3,
+                credit:
+                    'https://www.vox.com/the-big-idea/2016/12/23/14062168/history-global-conditions-charts-life-span-poverty'),
+            SizedBox(height: 20),
             const BodyTextWithSingleHyperlink(
-                'We modern humans benefit from monogamy a lot. Firstly, if promotes emotional health and stability for individuals by fostering trust between partners. In contrast, infidelity and multiple partners can lead to fight and divisions. According to American Psychological Association, ',
+                'We modern humans benefit from monogamy a lot. Firstly, it promotes emotional health and stability for individuals by fostering trust between partners. In contrast, infidelity and multiple partners can lead to fight and divisions. According to American Psychological Association, ',
                 '20% to 40% of the divorces are caused by infidelity. ',
                 'Monogamous marriages are also optimal for the development of offspring. As opposed to male in a polyandrous marriage, monogamous male will be willing to offer more resources on children since they are sure that the child is his genetic offspring. It is ensured that both partners can devote themselves to maintaining a single family. When I was growing up, both my father and mother contributed significantly to my personal growth in different ways. My father is adventurous so he often took me out to different countries to broaden my worldview. On the other hand, my mother was meticulous and good at making plans. She helped a lot in my skill developments and college applications. Thanks for their mutual commitment to our family, I received the full support and guidance throughout my upbringing. Overall, the form of monogamous marriage has many advantages that contribute to healthier and more fulfilling relationships, both for individuals and for families.',
                 'https://www.apa.org/pubs/journals/features/cfp-0000012.pdf'),
             const BodyText(
-              'Although humans were once naturally polygynous, urban development and industrialization have enabled monogamous couples to enjoy a good quality of life as well. Good monogamous marriages benefit people by establishing tight family bonds and thus provide supportive environments for children to grow up. ',
+              'Although humans were once naturally polygynous, society development and industrialization made monogamy common. Good monogamous marriages benefit people by establishing tight family bonds and thus provide supportive environments for children to grow up. ',
             )
           ],
         ),

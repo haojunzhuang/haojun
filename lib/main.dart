@@ -4,6 +4,7 @@ import 'package:me/home/home_page_provider.dart';
 import 'package:me/profile_page.dart';
 import 'package:me/showcase/blog/blog_home.dart';
 import 'package:me/showcase/blog/blog_monogamy.dart';
+import 'package:me/showcase/blog/blog_smile.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/blog': (context) => const BlogHome(),
         '/blog/monogamy': (context) => const BlogMonogamy(),
+        '/blog/smile': (context) => const BlogSmile(),
       },
     );
   }
