@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:me/globals.dart';
 import 'package:me/showcase/blog/tile_card.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'dart:math' as math;
@@ -42,8 +43,15 @@ class BlogHome extends StatelessWidget {
                 child: SingleChildScrollView(
                     child: Padding(
                         padding: const EdgeInsets.all(50),
-                        child: Center(
-                          child: Wrap(
+                        child: Column(children: [
+                          const SizedBox(height: 50),
+                          Text('Welcome to my blog!', style: title2),
+                          const SizedBox(height: 10),
+                          Text(
+                              'Please select a card you would like to explore.',
+                              style: title2),
+                          const SizedBox(height: 50),
+                          Wrap(
                               spacing: 100,
                               // runSpacing: 20,
                               children: [
@@ -59,7 +67,7 @@ class BlogHome extends StatelessWidget {
                                   ),
                                 ),
                                 Padding(
-                                    padding: EdgeInsets.all(30),
+                                    padding: const EdgeInsets.all(30),
                                     child: TiltCard(
                                       title: 'Animals Who Smile',
                                       image: 'smiles.png',
@@ -69,7 +77,7 @@ class BlogHome extends StatelessWidget {
                                       },
                                     )),
                               ]),
-                        )))),
+                        ])))),
           )
         ],
       ),

@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Row(
         children: [
-          NavigationDrawer(),
+          const NavigationDrawer(),
           Expanded(
             child: IndexedStack(
               index: provider.pageIndex,
@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
                 Container(
                   color: Colors.red,
                 ),
-                ShowcasePage(),
+                const ShowcasePage(),
                 Container(
                   color: Colors.purple,
                 ),
@@ -97,10 +97,10 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
 class NavigationLink extends StatelessWidget {
   final String text;
   final IconData icon;
-  bool showText;
+  final bool showText;
   final int index;
 
-  NavigationLink(
+  const NavigationLink(
       {required this.text,
       required this.icon,
       required this.showText,

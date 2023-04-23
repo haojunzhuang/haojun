@@ -24,8 +24,8 @@ class BlogMonogamy extends StatelessWidget {
                 width: size.width * 0.6,
                 credit:
                     'https://www.youtube.com/watch?v=bxQdLhOQf5c&embeds_euri=https%3A%2F%2Fwww.psychmechanics.com%2F&source_ve_path=MzY5MjUsMjM4NTE&feature=emb_title'),
-            const Padding(
-              padding: EdgeInsets.all(20),
+            Padding(
+              padding: const EdgeInsets.all(20),
               child:
                   Text('Married to your loved one … or ones?', style: title1),
             ),
@@ -64,8 +64,8 @@ class BlogMonogamy extends StatelessWidget {
               'https://en.wikipedia.org/wiki/Legality_of_polygamy',
             ),
             Row(
-              children: [
-                const Expanded(
+              children: const [
+                Expanded(
                   child: BodyText(
                       'With the emergence of kingdoms and nations, legislation on monogamous marriage became common. Marriage laws became a great way for rulers to maintain order between people and to control the number of newborns. Additionally, it is important to note that the distribution of resources has changed significantly. Modern human societies tend to have a more equal distribution of resources due to industrial revolution and economic development. In the past, a woman might have been better off choosing a polygynous marriage with a wealthy man over a monogamous marriage with an average man due to the significant difference in the resources they could provide. However, in a more equally distributed society, different classes and sexes have more access to basic goods like food and health care. As a result, even an average-wealthy couple can enjoy a fair life through wages, making it unnecessary to join a polygynous marriage for resources.'),
                 ),

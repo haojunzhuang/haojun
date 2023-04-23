@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:me/globals.dart';
+
 class TiltCard extends StatefulWidget {
   final String title;
   final String image;
   final Function onTap;
 
-  TiltCard({required this.title, required this.image, required this.onTap});
+  const TiltCard(
+      {required this.title, required this.image, required this.onTap, Key? key})
+      : super(key: key);
 
   @override
   _TiltCardState createState() => _TiltCardState();
@@ -27,7 +31,7 @@ class _TiltCardState extends State<TiltCard>
     super.initState();
     _resetController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 2000),
+      duration: const Duration(milliseconds: 2000),
     );
     _resetAnimation = Tween<double>(begin: 1, end: 0).animate(_resetController)
       ..addListener(() {
@@ -86,14 +90,10 @@ class _TiltCardState extends State<TiltCard>
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(25),
                           topRight: Radius.circular(25)),
-                      child: Image.asset('assets/images/' + widget.image),
+                      child: Image.asset('assets/images/${widget.image}'),
                     ),
                     const SizedBox(height: 20),
-                    Text(widget.title,
-                        style: const TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Roboto'))
+                    Text(widget.title, style: title3)
                   ],
                 )),
           ),

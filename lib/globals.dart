@@ -1,39 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 const Color deepBlue = Color.fromARGB(255, 0, 48, 137);
 
-const TextStyle title1 = TextStyle(
-  fontSize: 40,
-  fontWeight: FontWeight.bold,
-  color: Colors.black,
-  fontFamily: 'Roboto',
+TextStyle title1 = GoogleFonts.lora(
+  textStyle: const TextStyle(
+    fontSize: 40,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  ),
 );
 
-const TextStyle body = TextStyle(
-  fontSize: 20,
-  fontWeight: FontWeight.normal,
-  color: Colors.black,
-  fontFamily: 'Roboto',
+TextStyle title2 = GoogleFonts.lora(
+  textStyle: const TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  ),
 );
 
-const TextStyle bodyHyperlink = TextStyle(
-  fontSize: 20,
-  fontWeight: FontWeight.normal,
-  decoration: TextDecoration.underline,
-  color: Colors.black,
-  fontFamily: 'Roboto',
+TextStyle title3 = GoogleFonts.lora(
+  textStyle: const TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  ),
 );
 
-const TextStyle bodySmall = TextStyle(
-  fontSize: 12,
-  fontWeight: FontWeight.normal,
-  color: Colors.grey,
-  fontFamily: 'Roboto',
+TextStyle body = GoogleFonts.lora(
+  textStyle: const TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.normal,
+    color: Colors.black,
+  ),
 );
 
-const TextStyle caption = TextStyle(
-  fontSize: 15,
-  fontWeight: FontWeight.bold,
-  color: Colors.black,
-  fontFamily: 'Chivo Mono',
+TextStyle bodyHyperlink = GoogleFonts.lora(
+  textStyle: const TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.normal,
+    decoration: TextDecoration.underline,
+    color: Colors.black,
+  ),
+);
+
+TextStyle bodySmall = GoogleFonts.lora(
+  textStyle: const TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+    color: Colors.grey,
+  ),
+);
+
+TextStyle bodySmallBold = GoogleFonts.lora(
+  textStyle: const TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+    color: Colors.grey,
+  ),
+);
+
+TextStyle caption = GoogleFonts.chivo(
+  textStyle: const TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  ),
 );

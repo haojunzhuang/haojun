@@ -39,6 +39,7 @@ dependencies:
   simple_gradient_text: ^1.2.4
   hover_card: ^0.0.1
   url_launcher: ^6.1.10
+  google_fonts: ^4.0.3
 
 dev_dependencies:
   flutter_test:
