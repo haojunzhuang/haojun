@@ -7,29 +7,27 @@ class ShowcasePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    Scaffold(
-      backgroundColor: Colors.black,
-      body:
-    Center(
-      child: Column(
-        
-        children: [
-
-        
-        TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/blog');
-            },
-            child: Text('R4B Writer\'s blog', style: TextStyle(color: Colors.black),)),
-
-            Container(color: Colors.blue,),
-
-        Container(height: 500, width: 500, child: LoveSimulation(),),
-        
-
-
-      ]),
-    ));
+    return Scaffold(
+        backgroundColor: Colors.black,
+        body: Center(
+          child: Column(children: [
+            TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/blog');
+                },
+                child: const Text(
+                  'R4B Writer\'s blog',
+                  style: TextStyle(color: Colors.white),
+                )),
+            Container(
+              color: Colors.blue,
+            ),
+            Container(
+              height: 700,
+              width: 500,
+              child: const LoveSimulation(),
+            ),
+          ]),
+        ));
   }
 }

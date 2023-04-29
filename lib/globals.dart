@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const Color deepBlue = Color.fromARGB(255, 0, 48, 137);
+const Color lightBlue = Color.fromARGB(255, 87, 132, 215);
 
 TextStyle title1 = GoogleFonts.lora(
   textStyle: const TextStyle(

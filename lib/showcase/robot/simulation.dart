@@ -1,56 +1,8 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-
-class Dot {
-  Offset position;
-  bool isMale;
-  bool isMarried = false;
-  bool isPregnant = false;
-  int age;
-  int lastReproductionTime = 0;
-
-  Dot(this.position, this.isMale, this.age);
-
-  bool canReproduce() {
-    return !isPregnant && age >= 18 && age <= 40;
-  }
-
-  Dot? reproduce(Dot partner, bool isNumb, double numbKidSurvivalRate,
-      double loveKidSurvivalRate) {
-    if (isNumb) {
-      if (Random().nextDouble() < numbKidSurvivalRate) {
-        return Dot(position, Random().nextBool(), 0);
-      } else {
-        return null;
-      }
-    } else {
-      if (Random().nextDouble() < loveKidSurvivalRate) {
-        return Dot(position, Random().nextBool(), 0);
-      } else {
-        return null;
-      }
-    }
-  }
-
-  void ageOneStep() {
-    age++;
-    if (isPregnant) {
-      if (age - lastReproductionTime >= 9) {
-        isPregnant = false;
-        lastReproductionTime = age;
-      }
-    }
-  }
-}
-
-class Kid {
-  Offset position;
-  int age;
-
-  Kid(this.position, this.age);
-  // Add methods for aging as needed
-}
+import 'package:me/globals.dart';
+import 'package:me/showcase/robot/robots.dart';
 
 class LoveSimulation extends StatefulWidget {
   const LoveSimulation({super.key});
@@ -64,21 +16,24 @@ class SimulationState extends State<LoveSimulation> {
   double _numbKidSurvivalRate = 0.5;
   double _loveKidSurvivalRate = 0.8;
 
-  double _maleDotSize = 5.0;
-  double _femaleDotSize = 5.0;
-  double _kidDotSize = 3.0;
-  double _plainWidth = 300.0;
-  double _plainHeight = 300.0;
-  int _timestepMilliSeconds = 1000;
+  final double _maleDotSize = 5.0;
+  final double _femaleDotSize = 5.0;
+  final double _plainWidth = 300.0;
+  final double _plainHeight = 300.0;
+  final int _timestepMilliSeconds = 100;
 
-  List<Dot> _dots = [];
   List<Dot> _males = [];
   List<Dot> _females = [];
   List<Dot> _married = [];
   List<Kid> _kids = [];
-  int _stepCount = 0;
 
-  Timer _timer = Timer.periodic(Duration(milliseconds: 50), (_) => () {});
+  // observed variables
+  int _stepCount = 0;
+  int _totalBorn = 0;
+  int _totalDead = 0;
+  int _totalMarried = 0;
+
+  Timer _timer = Timer.periodic(const Duration(milliseconds: 50), (_) => () {});
 
   @override
   void initState() {
@@ -93,36 +48,33 @@ class SimulationState extends State<LoveSimulation> {
   }
 
   void _initializeDots() {
-    _dots = List.generate(
+    List<Dot> dots = List.generate(
         100,
         (index) =>
             Dot(_randomPosition(), Random().nextBool(), Random().nextInt(500)));
-    _males = _dots.where((dot) => dot.isMale).toList();
-    _females = _dots.where((dot) => !dot.isMale).toList();
+    _males = dots.where((dot) => dot.isMale).toList();
+    _females = dots.where((dot) => !dot.isMale).toList();
   }
-
-  Offset _randomPosition() {
-    return Offset(Random().nextDouble() * _plainWidth,
-        Random().nextDouble() * _plainHeight);
-  }
-
-  // void _startSimulation() {
-  //   _timer = Timer.periodic(Duration(milliseconds: 50), (_) => _runSimulation());
-  // }
 
   void _stepSimulation() {
     _stepCount++;
     _moveDots();
     _reproduce();
     _ageDots();
-    // _removeDeadDot();
     setState(() {});
   }
 
   void _moveDots() {
-    for (var dot in _dots) {
-      double dx = Random().nextDouble() * 10 - 5;
-      double dy = Random().nextDouble() * 10 - 5;
+    for (var dot in _males) {
+      double dx = Random().nextDouble() * 20 - 10;
+      double dy = Random().nextDouble() * 20 - 10;
+      dot.position += Offset(dx, dy);
+      dot.position = Offset(max(min(dot.position.dx, _plainWidth), 0),
+          max(min(dot.position.dy, _plainHeight), 0));
+    }
+    for (var dot in _females) {
+      double dx = Random().nextDouble() * 20 - 10;
+      double dy = Random().nextDouble() * 20 - 10;
       dot.position += Offset(dx, dy);
       dot.position = Offset(max(min(dot.position.dx, _plainWidth), 0),
           max(min(dot.position.dy, _plainHeight), 0));
@@ -130,56 +82,68 @@ class SimulationState extends State<LoveSimulation> {
   }
 
   void _reproduce() {
-    List<Dot> newDots = [];
+    List<Dot> infants = [];
     for (var male in _males) {
-      if (!male.isMarried && male.canReproduce()) {
-        Dot female = _females.firstWhere(
-            (f) =>
-                !f.isMarried &&
-                f.canReproduce() &&
-                _distance(male.position, f.position) < 10,
-            orElse: () => Dot(Offset(0, 0), true, -1));
-
-        if (female.age != -1) {
-          Dot? child = male.reproduce(
-              female, _isNumb, _numbKidSurvivalRate, _loveKidSurvivalRate);
-          if (child != null) {
-            if (Random().nextBool()) {
-              newDots.add(child);
-            } else {
-              _kids.add(Kid(Offset(400, 100), 0));
-            }
-          }
+      Dot female = _females.firstWhere(
+          (f) =>
+              !f.isMarried &&
+              f.canReproduce() &&
+              _distance(male.position, f.position) < 10,
+          orElse: () => Dot(const Offset(0, 0), true, -1));
+      if (female.age != -1) {
+        Dot? infant = female.reproduce(
+            male, _isNumb, _numbKidSurvivalRate, _loveKidSurvivalRate);
+        if (infant != null) {
+          infants.add(infant);
+        }
+        if (!_isNumb) {
           male.isMarried = true;
           female.isMarried = true;
           _married.add(male);
           _married.add(female);
+          _males.remove(male);
+          _females.remove(female);
+          _totalMarried += 2;
         }
       }
     }
-    _dots.addAll(newDots);
-  }
 
-  double _distance(Offset a, Offset b) {
-    double dx = a.dx - b.dx;
-    double dy = a.dy - b.dy;
-    return sqrt(dx * dx + dy * dy);
+    _totalBorn += infants.length;
+    _kids.addAll(infants as Iterable<Kid>);
   }
 
   void _ageDots() {
-    for (var dot in _dots) {
+    for (var dot in _males) {
       dot.ageOneStep();
       if (dot.age == 500) {
         if (dot.isMarried) {
           _married.remove(dot);
+          _totalMarried--;
         }
-        _dots.remove(dot);
+        _males.remove(dot);
+        _totalDead++;
+      }
+    }
+    for (var dot in _females) {
+      dot.ageOneStep();
+      if (dot.age == 500) {
+        if (dot.isMarried) {
+          _married.remove(dot);
+          _totalMarried--;
+        }
+        _females.remove(dot);
+        _totalDead++;
       }
     }
     for (var kid in _kids) {
       kid.age++;
       if (kid.age == 180) {
-        _dots.add(Dot(kid.position, Random().nextBool(), 0));
+        bool isMale = Random().nextBool();
+        if (isMale) {
+          _males.add(Dot(kid.position, true, 0));
+        } else {
+          _females.add(Dot(kid.position, true, 0));
+        }
         _kids.remove(kid);
       }
     }
@@ -187,6 +151,8 @@ class SimulationState extends State<LoveSimulation> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Flutter Simulation'),
@@ -200,30 +166,28 @@ class SimulationState extends State<LoveSimulation> {
               height: _plainHeight,
               child: Stack(
                 children: [
-                  for (var dot in _dots)
+                  for (var dot in _males)
                     Positioned(
-                      left: dot.position.dx -
-                          (dot.isMale ? _maleDotSize / 2 : _femaleDotSize / 2),
-                      top: dot.position.dy -
-                          (dot.isMale ? _maleDotSize / 2 : _femaleDotSize / 2),
+                      left: dot.position.dx,
+                      top: dot.position.dy,
                       child: Container(
-                        width: dot.isMale ? _maleDotSize : _femaleDotSize,
-                        height: dot.isMale ? _maleDotSize : _femaleDotSize,
-                        decoration: BoxDecoration(
-                          color: dot.isMale ? Colors.blue : Colors.red,
+                        width: _maleDotSize,
+                        height: _maleDotSize,
+                        decoration: const BoxDecoration(
+                          color: Colors.blue,
                           shape: BoxShape.circle,
                         ),
                       ),
                     ),
-                  for (var kid in _kids)
+                  for (var dot in _females)
                     Positioned(
-                      left: kid.position.dx - _kidDotSize / 2,
-                      top: kid.position.dy - _kidDotSize / 2,
+                      left: dot.position.dx,
+                      top: dot.position.dy,
                       child: Container(
-                        width: _kidDotSize,
-                        height: _kidDotSize,
+                        width: _femaleDotSize,
+                        height: _femaleDotSize,
                         decoration: const BoxDecoration(
-                          color: Colors.green,
+                          color: Colors.red,
                           shape: BoxShape.circle,
                         ),
                       ),
@@ -231,28 +195,34 @@ class SimulationState extends State<LoveSimulation> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text('isNumb: ${_isNumb.toString()}'),
-            Slider(
-              value: _isNumb ? 1 : 0,
-              min: 0,
-              max: 1,
-              divisions: 1,
-              label: _isNumb ? 'Numb' : 'Love',
-              onChanged: (value) {
-                setState(() {
-                  _isNumb = value.round() == 1;
-                });
-              },
-            ),
-            SizedBox(height: 10),
+            SizedBox(
+                width: size.width * 0.1,
+                child: Slider(
+                  activeColor: deepBlue,
+                  inactiveColor: lightBlue,
+                  value: _isNumb ? 1 : 0,
+                  min: 0,
+                  max: 1,
+                  divisions: 1,
+                  label: _isNumb ? 'Numb' : 'Love',
+                  onChanged: (value) {
+                    setState(() {
+                      _isNumb = value.round() == 1;
+                    });
+                  },
+                )),
+            const SizedBox(height: 10),
             Text(
                 'Numb Kid Survival Rate: ${_numbKidSurvivalRate.toStringAsFixed(2)}'),
             Slider(
+              activeColor: deepBlue,
+              inactiveColor: lightBlue,
               value: _numbKidSurvivalRate,
               min: 0,
               max: 1,
-              divisions: 10,
+              divisions: 20,
               label: _numbKidSurvivalRate.toStringAsFixed(2),
               onChanged: (value) {
                 setState(() {
@@ -260,14 +230,16 @@ class SimulationState extends State<LoveSimulation> {
                 });
               },
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
                 'Love Kid Survival Rate: ${_loveKidSurvivalRate.toStringAsFixed(2)}'),
             Slider(
+              activeColor: deepBlue,
+              inactiveColor: lightBlue,
               value: _loveKidSurvivalRate,
               min: 0,
               max: 1,
-              divisions: 10,
+              divisions: 20,
               label: _loveKidSurvivalRate.toStringAsFixed(2),
               onChanged: (value) {
                 setState(() {
@@ -275,7 +247,7 @@ class SimulationState extends State<LoveSimulation> {
                 });
               },
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 _timer.cancel();
@@ -285,11 +257,22 @@ class SimulationState extends State<LoveSimulation> {
                   _stepSimulation();
                 });
               },
-              child: Text('Start Simulation'),
+              child: const Text('Start Simulation'),
             ),
           ],
         ),
       ),
     );
+  }
+
+  Offset _randomPosition() {
+    return Offset(Random().nextDouble() * _plainWidth,
+        Random().nextDouble() * _plainHeight);
+  }
+
+  double _distance(Offset a, Offset b) {
+    double dx = a.dx - b.dx;
+    double dy = a.dy - b.dy;
+    return sqrt(dx * dx + dy * dy);
   }
 }
