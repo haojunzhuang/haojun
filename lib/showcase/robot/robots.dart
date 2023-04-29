@@ -16,27 +16,28 @@ class Dot {
     return isMale || !isPregnant;
   }
 
-  Dot? reproduce(Dot partner, bool isNumb, double numbKidSurvivalRate,
+  List<Kid> reproduce(Dot partner, bool isNumb, double numbKidSurvivalRate,
       double loveKidSurvivalRate) {
     if (isNumb) {
       if (Random().nextDouble() < numbKidSurvivalRate) {
-        return Dot(position, Random().nextBool(), 0);
+        return [Kid(0)];
       } else {
-        return null;
+        return [];
       }
     } else {
-      if (Random().nextDouble() < loveKidSurvivalRate) {
-        return Dot(position, Random().nextBool(), 0);
-      } else {
-        return null;
+      List<Kid> result = [];
+      while (Random().nextDouble() < loveKidSurvivalRate) {
+        result.add(Kid(0));
+        loveKidSurvivalRate -= 1;
       }
+      return result;
     }
   }
 
   void ageOneStep() {
     age++;
     if (isPregnant) {
-      if (age - lastReproductionTime >= 9) {
+      if (age - lastReproductionTime >= 12) {
         isPregnant = false;
         lastReproductionTime = age;
       }
@@ -45,9 +46,8 @@ class Dot {
 }
 
 class Kid {
-  Offset position;
   int age;
 
-  Kid(this.position, this.age);
+  Kid(this.age);
   // Add methods for aging as needed
 }

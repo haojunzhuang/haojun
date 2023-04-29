@@ -40,6 +40,7 @@ dependencies:
   hover_card: ^0.0.1
   url_launcher: ^6.1.10
   google_fonts: ^4.0.3
+  syncfusion_flutter_charts: ^21.1.41
 
 dev_dependencies:
   flutter_test:

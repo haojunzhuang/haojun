@@ -5,6 +5,7 @@ import 'package:me/mom.dart';
 import 'package:me/showcase/blog/blog_home.dart';
 import 'package:me/showcase/blog/blog_monogamy.dart';
 import 'package:me/showcase/blog/blog_smile.dart';
+import 'package:me/showcase/robot/simulation.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         '/blog': (context) => const BlogHome(),
         '/blog/monogamy': (context) => const BlogMonogamy(),
         '/blog/smile': (context) => const BlogSmile(),
+        '/simulations/love': (context) => const LoveSimulation(),
       },
     );
   }

@@ -19,14 +19,14 @@ class ShowcasePage extends StatelessWidget {
                   'R4B Writer\'s blog',
                   style: TextStyle(color: Colors.white),
                 )),
-            Container(
-              color: Colors.blue,
-            ),
-            Container(
-              height: 700,
-              width: 500,
-              child: const LoveSimulation(),
-            ),
+            TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/simulations/love');
+                },
+                child: const Text(
+                  'Love Simulation',
+                  style: TextStyle(color: Colors.white),
+                )),
           ]),
         ));
   }
