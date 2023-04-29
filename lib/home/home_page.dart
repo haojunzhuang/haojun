@@ -20,11 +20,11 @@ class HomePage extends StatelessWidget {
               index: provider.pageIndex,
               children: [
                 Container(
-                  color: Colors.red,
+                  color: Colors.blue,
                 ),
-                const ShowcasePage(),
+                ShowcasePage(),
                 Container(
-                  color: Colors.purple,
+                  color: Colors.green,
                 ),
               ],
             ),
