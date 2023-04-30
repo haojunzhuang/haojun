@@ -46,7 +46,10 @@ class SimulationState extends State<LoveSimulation> {
   int _totalMarried = 0;
 
   bool started = false;
-  Timer _timer = Timer.periodic(const Duration(milliseconds: 10), (_) => () {});
+  Timer _timer =
+      Timer.periodic(const Duration(milliseconds: 100), (_) => () {});
+
+  int simulationIndex = 0;
 
   @override
   void initState() {
@@ -73,6 +76,8 @@ class SimulationState extends State<LoveSimulation> {
     _totalBorn = 0;
     _totalDead = 0;
     _totalMarried = 0;
+
+    simulationIndex++;
   }
 
   void _stepSimulation() {
@@ -193,6 +198,32 @@ class SimulationState extends State<LoveSimulation> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(children: [
+                !started
+                    ? ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: deepBlue,
+                        ),
+                        onPressed: () {
+                          started = true;
+                          _initializeDots();
+                          _timer = Timer.periodic(
+                              Duration(milliseconds: _timestepMilliSeconds),
+                              (timer) {
+                            _stepSimulation();
+                          });
+                        },
+                        child: const Text('Start New Simulation'))
+                    : ElevatedButton(
+                        onPressed: () {
+                          started = false;
+                          _timer.cancel();
+                          setState(() {});
+                        },
+                        child: const Text('Stop Simulation'),
+                      ),
+                const SizedBox(
+                  height: 10,
+                ),
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black),
@@ -235,7 +266,7 @@ class SimulationState extends State<LoveSimulation> {
               SizedBox(width: 10),
               Column(
                 children: [
-                  Text('isNumb: ${_isNumb.toString()}'),
+                  Text(_isNumb ? 'Numb' : 'Love'),
                   SizedBox(
                       width: size.width * 0.05,
                       child: Slider(
@@ -245,7 +276,7 @@ class SimulationState extends State<LoveSimulation> {
                         min: 0,
                         max: 1,
                         divisions: 1,
-                        label: _isNumb ? 'Numb' : 'Love',
+                        // label: _isNumb ? 'Numb' : 'Love',
                         onChanged: (value) {
                           setState(() {
                             _isNumb = value.round() == 1;
@@ -261,7 +292,7 @@ class SimulationState extends State<LoveSimulation> {
                     min: 50,
                     max: 500,
                     divisions: 20,
-                    label: "Initial Population",
+                    // label: "Initial Population",
                     onChanged: (value) {
                       setState(() {
                         initialPopulation = value.toInt();
@@ -277,7 +308,7 @@ class SimulationState extends State<LoveSimulation> {
                     min: 30,
                     max: 200,
                     divisions: 20,
-                    label: "Initial Children Population",
+                    // label: "Initial Children Population",
                     onChanged: (value) {
                       setState(() {
                         initialChildren = value.toInt();
@@ -294,7 +325,7 @@ class SimulationState extends State<LoveSimulation> {
                     min: 0,
                     max: 1,
                     divisions: 20,
-                    label: _numbKidSurvivalRate.toStringAsFixed(2),
+                    // label: _numbKidSurvivalRate.toStringAsFixed(2),
                     onChanged: (value) {
                       setState(() {
                         _numbKidSurvivalRate = value;
@@ -311,34 +342,13 @@ class SimulationState extends State<LoveSimulation> {
                     min: 0,
                     max: 5,
                     divisions: 20,
-                    label: _loveKidSurvivalRate.toStringAsFixed(2),
+                    // label: _loveKidSurvivalRate.toStringAsFixed(2),
                     onChanged: (value) {
                       setState(() {
                         _loveKidSurvivalRate = value;
                       });
                     },
                   ),
-                  const SizedBox(height: 20),
-                  !started
-                      ? ElevatedButton(
-                          onPressed: () {
-                            started = true;
-                            _initializeDots();
-                            _timer = Timer.periodic(
-                                Duration(milliseconds: _timestepMilliSeconds),
-                                (timer) {
-                              _stepSimulation();
-                            });
-                          },
-                          child: const Text('Start New Simulation'))
-                      : ElevatedButton(
-                          onPressed: () {
-                            started = false;
-                            _timer.cancel();
-                            setState(() {});
-                          },
-                          child: const Text('Stop Simulation'),
-                        ),
                 ],
               ),
               const SizedBox(width: 10),
@@ -356,12 +366,32 @@ class SimulationState extends State<LoveSimulation> {
                 ],
               )
             ]),
-        Row(
-          children: [
-            LiveUpdatedObserveChart(
-                _males.length + _females.length + _kids.length)
-          ],
-        )
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          LiveUpdatedObserveChart(
+            started,
+            _males.length + _females.length + _kids.length,
+            'Total Population vs. Time',
+            key: Key('population$simulationIndex'),
+          ),
+          LiveUpdatedObserveChart(
+            started,
+            _totalBorn,
+            'Total Born vs. Time',
+            key: Key('born$simulationIndex'),
+          ),
+          LiveUpdatedObserveChart(
+            started,
+            _totalMarried,
+            'Total Married vs. Time',
+            key: Key('married$simulationIndex'),
+          ),
+          LiveUpdatedObserveChart(
+            started,
+            _totalDead,
+            'Total Dead vs. Time',
+            key: Key('dead$simulationIndex'),
+          )
+        ])
       ]),
     );
   }

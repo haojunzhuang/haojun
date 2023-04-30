@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:me/globals.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class LiveUpdatedObserveChart extends StatefulWidget {
-  const LiveUpdatedObserveChart(this.data, {super.key});
+  LiveUpdatedObserveChart(this.isStarted, this.data, this.title, {super.key});
 
-  final int data;
+  bool isStarted;
+  int data;
+  final String title;
 
   @override
   State<LiveUpdatedObserveChart> createState() => _ObserveAreaState();
@@ -27,7 +30,9 @@ class _ObserveAreaState extends State<LiveUpdatedObserveChart> {
   @override
   void didUpdateWidget(covariant LiveUpdatedObserveChart oldWidget) {
     super.didUpdateWidget(oldWidget);
-    addDataPoint(widget.data);
+    if (widget.isStarted) {
+      addDataPoint(widget.data);
+    }
   }
 
   /// Add the data point into the line series
@@ -41,17 +46,21 @@ class _ObserveAreaState extends State<LiveUpdatedObserveChart> {
   }
 
   /// Returns the chart with add and remove points options.
-  SfCartesianChart _buildAddRemovePointsChart() {
-    return SfCartesianChart(
-      plotAreaBorderWidth: 0,
-      primaryXAxis: NumericAxis(
-          majorGridLines: const MajorGridLines(width: 0),
-          edgeLabelPlacement: EdgeLabelPlacement.shift),
-      primaryYAxis: NumericAxis(
-          axisLine: const AxisLine(width: 0),
-          majorTickLines: const MajorTickLines(size: 0)),
-      series: _getAddRemovePointSeries(),
-    );
+  Widget _buildAddRemovePointsChart() {
+    return Padding(
+        padding: const EdgeInsets.all(10),
+        child: SfCartesianChart(
+          title: ChartTitle(text: widget.title),
+          plotAreaBorderWidth: 1,
+          borderColor: deepBlue,
+          primaryXAxis: NumericAxis(
+              majorGridLines: const MajorGridLines(width: 0),
+              edgeLabelPlacement: EdgeLabelPlacement.shift),
+          primaryYAxis: NumericAxis(
+              axisLine: const AxisLine(width: 0),
+              majorTickLines: const MajorTickLines(size: 0)),
+          series: _getAddRemovePointSeries(),
+        ));
   }
 
   /// Returns the list of chart series which need to render
