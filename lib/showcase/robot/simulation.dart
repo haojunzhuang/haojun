@@ -48,7 +48,7 @@ class SimulationState extends State<LoveSimulation> {
   bool started = false;
   Timer _timer =
       Timer.periodic(const Duration(milliseconds: 100), (_) => () {});
-
+  Random random = Random(42);
   int simulationIndex = 0;
 
   @override
@@ -67,11 +67,11 @@ class SimulationState extends State<LoveSimulation> {
     List<Dot> dots = List.generate(
         initialPopulation,
         (index) =>
-            Dot(_randomPosition(), Random().nextBool(), Random().nextInt(500)));
+            Dot(_randomPosition(), random.nextBool(), random.nextInt(500)));
     _males = dots.where((dot) => dot.isMale).toList();
     _females = dots.where((dot) => !dot.isMale).toList();
     _kids = List.generate(initialChildren,
-        (index) => Kid(Random().nextInt(179))); // Randomly generate kids' ages
+        (index) => Kid(random.nextInt(119))); // Randomly generate kids' ages
     _stepCount = 0;
     _totalBorn = 0;
     _totalDead = 0;
@@ -96,15 +96,15 @@ class SimulationState extends State<LoveSimulation> {
 
   void _moveDots() {
     for (var dot in _males) {
-      double dx = Random().nextDouble() * 10 - 5;
-      double dy = Random().nextDouble() * 10 - 5;
+      double dx = random.nextDouble() * 10 - 5;
+      double dy = random.nextDouble() * 10 - 5;
       dot.position += Offset(dx, dy);
       dot.position = Offset(max(min(dot.position.dx, _plainWidth), 0),
           max(min(dot.position.dy, _plainHeight), 0));
     }
     for (var dot in _females) {
-      double dx = Random().nextDouble() * 10 - 5;
-      double dy = Random().nextDouble() * 10 - 5;
+      double dx = random.nextDouble() * 10 - 5;
+      double dy = random.nextDouble() * 10 - 5;
       dot.position += Offset(dx, dy);
       dot.position = Offset(max(min(dot.position.dx, _plainWidth), 0),
           max(min(dot.position.dy, _plainHeight), 0));
@@ -115,10 +115,7 @@ class SimulationState extends State<LoveSimulation> {
     List<Kid> infants = [];
     for (var male in _males) {
       Dot female = _females.firstWhere(
-          (f) =>
-              !f.isMarried &&
-              f.canReproduce() &&
-              _distance(male.position, f.position) < 5,
+          (f) => f.canReproduce() && _distance(male.position, f.position) < 2,
           orElse: () => Dot(const Offset(0, 0), true, -1));
       if (female.age != -1) {
         infants.addAll(female.reproduce(
@@ -145,7 +142,7 @@ class SimulationState extends State<LoveSimulation> {
   }
 
   void _ageDots() {
-    for (var dot in _males) {
+    for (Dot dot in _males) {
       dot.ageOneStep();
       if (dot.age == 300) {
         if (dot.isMarried) {
@@ -156,7 +153,7 @@ class SimulationState extends State<LoveSimulation> {
         _totalDead++;
       }
     }
-    for (var dot in _females) {
+    for (Dot dot in _females) {
       dot.ageOneStep();
       if (dot.age == 300) {
         if (dot.isMarried) {
@@ -167,16 +164,24 @@ class SimulationState extends State<LoveSimulation> {
         _totalDead++;
       }
     }
-    for (var kid in _kids) {
+    for (Kid kid in _kids) {
       kid.age++;
-      if (kid.age == 180) {
-        bool isMale = Random().nextBool();
+      if (kid.age >= 120) {
+        bool isMale = random.nextBool();
         if (isMale) {
           _males.add(Dot(_randomPosition(), true, 0));
         } else {
           _females.add(Dot(_randomPosition(), true, 0));
         }
         _kids.remove(kid);
+      }
+    }
+    for (Dot dot in _married) {
+      dot.age++;
+      if (dot.age >= 300) {
+        _married.remove(dot);
+        _totalMarried--;
+        _totalDead++;
       }
     }
   }
@@ -359,7 +364,7 @@ class SimulationState extends State<LoveSimulation> {
                   Text('Total Unmarried Female: ${_females.length}'),
                   Text('Total Children: ${_kids.length}'),
                   Text(
-                      'Total Population: ${_males.length + _females.length + _kids.length}'),
+                      'Total Population: ${_males.length + _females.length + _married.length + _kids.length}'),
                   Text('Total Born: $_totalBorn'),
                   Text('Total Married: $_totalMarried'),
                   Text('Total Dead: $_totalDead'),
@@ -369,9 +374,11 @@ class SimulationState extends State<LoveSimulation> {
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           LiveUpdatedObserveChart(
             started,
-            _males.length + _females.length + _kids.length,
+            _males.length + _females.length + _married.length + _kids.length,
             'Total Population vs. Time',
             key: Key('population$simulationIndex'),
+            xTitle: "Time Elapsed (Months)",
+            yTitle: "Total Population",
           ),
           LiveUpdatedObserveChart(
             started,
@@ -397,8 +404,8 @@ class SimulationState extends State<LoveSimulation> {
   }
 
   Offset _randomPosition() {
-    return Offset(Random().nextDouble() * _plainWidth,
-        Random().nextDouble() * _plainHeight);
+    return Offset(
+        random.nextDouble() * _plainWidth, random.nextDouble() * _plainHeight);
   }
 
   double _distance(Offset a, Offset b) {

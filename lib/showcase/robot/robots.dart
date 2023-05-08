@@ -9,6 +9,7 @@ class Dot {
   bool isPregnant = false;
   int age;
   int lastReproductionTime = 0;
+  Random random = Random(42);
 
   Dot(this.position, this.isMale, this.age);
 
@@ -20,14 +21,14 @@ class Dot {
       double loveKidSurvivalRate) {
     if (isNumb) {
       if (Random().nextDouble() < numbKidSurvivalRate) {
-        return [Kid(0)];
+        return [Kid(0 + random.nextInt(60))];
       } else {
         return [];
       }
     } else {
       List<Kid> result = [];
       while (Random().nextDouble() < loveKidSurvivalRate) {
-        result.add(Kid(0));
+        result.add(Kid(0 + random.nextInt(60)));
         loveKidSurvivalRate -= 1;
       }
       return result;

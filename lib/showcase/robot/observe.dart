@@ -3,11 +3,14 @@ import 'package:me/globals.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class LiveUpdatedObserveChart extends StatefulWidget {
-  LiveUpdatedObserveChart(this.isStarted, this.data, this.title, {super.key});
+  LiveUpdatedObserveChart(this.isStarted, this.data, this.title,
+      {this.xTitle, this.yTitle, super.key});
 
   bool isStarted;
   int data;
   final String title;
+  final String? xTitle;
+  final String? yTitle;
 
   @override
   State<LiveUpdatedObserveChart> createState() => _ObserveAreaState();
@@ -54,9 +57,11 @@ class _ObserveAreaState extends State<LiveUpdatedObserveChart> {
           plotAreaBorderWidth: 1,
           borderColor: deepBlue,
           primaryXAxis: NumericAxis(
+              title: AxisTitle(text: widget.xTitle),
               majorGridLines: const MajorGridLines(width: 0),
               edgeLabelPlacement: EdgeLabelPlacement.shift),
           primaryYAxis: NumericAxis(
+              title: AxisTitle(text: widget.yTitle),
               axisLine: const AxisLine(width: 0),
               majorTickLines: const MajorTickLines(size: 0)),
           series: _getAddRemovePointSeries(),
