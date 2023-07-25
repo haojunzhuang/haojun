@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:me/globals.dart';
 import 'package:me/home/home_page_provider.dart';
+import 'package:me/home/myself/myself.dart';
 import 'package:me/showcase/showcase_page.dart';
 import 'package:provider/provider.dart';
 
@@ -19,9 +20,7 @@ class HomePage extends StatelessWidget {
             child: IndexedStack(
               index: provider.pageIndex,
               children: [
-                Container(
-                  color: Colors.blue,
-                ),
+                const MyselfPage(),
                 const ShowcasePage(),
                 Container(
                   color: Colors.green,
@@ -72,19 +71,19 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             children: [
               NavigationLink(
                   text: 'Home',
-                  icon: Icons.home,
+                  icon: Icons.person_4_outlined,
                   showText: provider.showText,
                   drawerCollapseWidth: drawerCollapseWidth,
                   index: 0),
               NavigationLink(
-                  text: 'About',
-                  icon: Icons.info,
+                  text: 'Projects',
+                  icon: Icons.code_outlined,
                   showText: provider.showText,
                   drawerCollapseWidth: drawerCollapseWidth,
                   index: 1),
               NavigationLink(
-                text: 'Contact',
-                icon: Icons.contact_mail,
+                text: 'Links',
+                icon: Icons.link_outlined,
                 showText: provider.showText,
                 drawerCollapseWidth: drawerCollapseWidth,
                 index: 2,
@@ -137,10 +136,7 @@ class NavigationLink extends StatelessWidget {
                 Icon(icon, color: Colors.white, size: iconSize),
                 showText ? const SizedBox(width: 20) : const SizedBox.shrink(),
                 showText
-                    ? Text(
-                        text,
-                        style: const TextStyle(color: Colors.white),
-                      )
+                    ? Text(text, style: title4White)
                     : const SizedBox.shrink(),
               ],
             )),

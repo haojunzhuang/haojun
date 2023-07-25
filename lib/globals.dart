@@ -28,6 +28,22 @@ TextStyle title3 = GoogleFonts.lora(
   ),
 );
 
+TextStyle title3White = GoogleFonts.lora(
+  textStyle: const TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  ),
+);
+
+TextStyle title4White = GoogleFonts.lora(
+  textStyle: const TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  ),
+);
+
 TextStyle body = GoogleFonts.lora(
   textStyle: const TextStyle(
     fontSize: 20,
