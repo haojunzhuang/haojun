@@ -33,7 +33,7 @@ class MyselfPage extends StatelessWidget {
           Text('Haojun Zhuang', style: title2),
           SizedBox(height: size.height * 0.02),
           Text(
-            'Hi there! I am a junior studying computer science and bioengineering at Berkeley. My technical interests include software engineering, machine learning, simulation, and brain functions. When I am not coding, I enjoy basketball, cooking, and video games. Current video game rotations: FIFA 23, Deep Rock Galaxy.',
+            'Hi there! I am a junior studying computer science and bioengineering at Berkeley. My technical interests include software engineering, machine learning, simulation, and brain functions. When I am not coding, I enjoy basketball, cooking, and video games. Current video game rotations: FIFA 23, Deep Rock Galactic.',
             style: body,
             textAlign: TextAlign.center,
           ),
