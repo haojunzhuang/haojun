@@ -36,6 +36,14 @@ TextStyle title3White = GoogleFonts.lora(
   ),
 );
 
+TextStyle title4 = GoogleFonts.lora(
+  textStyle: const TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  ),
+);
+
 TextStyle title4White = GoogleFonts.lora(
   textStyle: const TextStyle(
     fontSize: 18,

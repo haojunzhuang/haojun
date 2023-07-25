@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:me/globals.dart';
-import 'package:me/showcase/blog/tile_card.dart';
+import 'package:me/widgets/tile_card.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'dart:math' as math;
 

@@ -3,6 +3,7 @@ import 'package:me/globals.dart';
 import 'package:me/home/home_page_provider.dart';
 import 'package:me/home/links/links.dart';
 import 'package:me/home/myself/myself.dart';
+import 'package:me/showcase/projects.dart';
 import 'package:me/showcase/showcase_page.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +23,7 @@ class HomePage extends StatelessWidget {
               index: provider.pageIndex,
               children: const [
                 MyselfPage(),
-                ShowcasePage(),
+                ProjectsPage(),
                 LinksPage(),
               ],
             ),

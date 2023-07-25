@@ -7,9 +7,16 @@ class TiltCard extends StatefulWidget {
   final String title;
   final String image;
   final Function onTap;
+  final Color borderColor;
+  final bool fitImage;
 
   const TiltCard(
-      {required this.title, required this.image, required this.onTap, Key? key})
+      {required this.title,
+      required this.image,
+      required this.onTap,
+      this.borderColor = const Color.fromARGB(255, 119, 4, 139),
+      this.fitImage = false,
+      Key? key})
       : super(key: key);
 
   @override
@@ -81,19 +88,35 @@ class _TiltCardState extends State<TiltCard>
                   ],
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(30),
-                  border: Border.all(
-                      color: const Color.fromARGB(255, 119, 4, 139), width: 5),
+                  border: Border.all(color: widget.borderColor, width: 5),
                 ),
                 child: Column(
                   children: [
                     ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(25),
-                          topRight: Radius.circular(25)),
-                      child: Image.asset('assets/images/${widget.image}'),
-                    ),
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(25),
+                            topRight: Radius.circular(25)),
+                        child: widget.fitImage
+                            ? SizedBox(
+                                height: 200,
+                                width: 350,
+                                child: Image.asset(
+                                    'assets/images/${widget.image}'),
+                              )
+                            : SizedBox(
+                                height: 200,
+                                width: 350,
+                                child: Image.asset(
+                                  'assets/images/${widget.image}',
+                                  fit: BoxFit.cover,
+                                ),
+                              )),
                     const SizedBox(height: 20),
-                    Text(widget.title, style: title3)
+                    Text(
+                      widget.title,
+                      style: title4,
+                      textAlign: TextAlign.center,
+                    )
                   ],
                 )),
           ),
