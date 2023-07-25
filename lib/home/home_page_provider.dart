@@ -25,10 +25,8 @@ class HomePageProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void manageShowText() {
-    if (showText == false) {
-      showText = true;
-    }
+  void doShowText() {
+    showText = true;
     notifyListeners();
   }
 }

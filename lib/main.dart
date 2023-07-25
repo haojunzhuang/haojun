@@ -8,6 +8,8 @@ import 'package:me/showcase/blog/blog_smile.dart';
 import 'package:me/showcase/robot/simulation.dart';
 import 'package:provider/provider.dart';
 
+import 'flatland/flatland.dart';
+
 void main() {
   runApp(
     MultiProvider(
@@ -38,6 +40,7 @@ class MyApp extends StatelessWidget {
         '/blog/monogamy': (context) => const BlogMonogamy(),
         '/blog/smile': (context) => const BlogSmile(),
         '/simulations/love': (context) => const LoveSimulation(),
+        '/flatland': (context) => GameApp(),
       },
     );
   }

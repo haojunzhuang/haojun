@@ -47,7 +47,7 @@ class SimulationState extends State<LoveSimulation> {
 
   bool started = false;
   Timer _timer =
-      Timer.periodic(const Duration(milliseconds: 100), (_) => () {});
+      Timer.periodic(const Duration(milliseconds: 200), (_) => () {});
   Random random = Random(42);
   int simulationIndex = 0;
 
@@ -271,6 +271,17 @@ class SimulationState extends State<LoveSimulation> {
               SizedBox(width: 10),
               Column(
                 children: [
+                  _isNumb
+                      ? Container()
+                      : const Text(
+                          'Note: Currently there is a bug on love simulation.'),
+                  _isNumb
+                      ? Container()
+                      : const Text(
+                          'Some device may not be able to run the simulation properly. '),
+                  _isNumb
+                      ? Container()
+                      : const Text('I am working to fix this issue.'),
                   Text(_isNumb ? 'Numb' : 'Love'),
                   SizedBox(
                       width: size.width * 0.05,

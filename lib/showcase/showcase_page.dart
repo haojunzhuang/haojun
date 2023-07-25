@@ -27,6 +27,30 @@ class ShowcasePage extends StatelessWidget {
                   'Love Simulation',
                   style: TextStyle(color: Colors.white),
                 )),
+            TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/');
+                },
+                child: const Text(
+                  'Polygamous Study',
+                  style: TextStyle(color: Colors.white),
+                )),
+            TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/');
+                },
+                child: const Text(
+                  'Individual Researches',
+                  style: TextStyle(color: Colors.white),
+                )),
+            TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/flatland');
+                },
+                child: const Text(
+                  'flatland',
+                  style: TextStyle(color: Colors.white),
+                )),
           ]),
         ));
   }

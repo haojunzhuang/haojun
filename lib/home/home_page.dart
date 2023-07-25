@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
                 Container(
                   color: Colors.blue,
                 ),
-                ShowcasePage(),
+                const ShowcasePage(),
                 Container(
                   color: Colors.green,
                 ),
@@ -46,8 +46,8 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double darwerCollapseWidth = size.width * 0.05;
-    double darwerExpandWidth = size.width * 0.15;
+    double drawerCollapseWidth = size.width * 0.05;
+    double drawerExpandWidth = size.width * 0.15;
 
     HomePageProvider provider = Provider.of<HomePageProvider>(context);
 
@@ -59,14 +59,12 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
         provider.collapseDrawer();
       },
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 400),
+        duration: const Duration(milliseconds: 600),
         curve: Curves.easeInOut,
-        width: provider.isExpanded ? darwerExpandWidth : darwerCollapseWidth,
+        width: provider.isExpanded ? drawerExpandWidth : drawerCollapseWidth,
         color: deepBlue,
         onEnd: () {
-          if (provider.isExpanded == true) {
-            provider.manageShowText();
-          }
+          provider.doShowText();
         },
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -76,16 +74,19 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                   text: 'Home',
                   icon: Icons.home,
                   showText: provider.showText,
+                  drawerCollapseWidth: drawerCollapseWidth,
                   index: 0),
               NavigationLink(
                   text: 'About',
                   icon: Icons.info,
                   showText: provider.showText,
+                  drawerCollapseWidth: drawerCollapseWidth,
                   index: 1),
               NavigationLink(
                 text: 'Contact',
                 icon: Icons.contact_mail,
                 showText: provider.showText,
+                drawerCollapseWidth: drawerCollapseWidth,
                 index: 2,
               ),
             ]),
@@ -99,24 +100,24 @@ class NavigationLink extends StatelessWidget {
   final IconData icon;
   final bool showText;
   final int index;
+  final double drawerCollapseWidth;
 
   const NavigationLink(
       {required this.text,
       required this.icon,
       required this.showText,
       required this.index,
+      required this.drawerCollapseWidth,
       super.key});
 
   @override
   Widget build(BuildContext context) {
     HomePageProvider provider = Provider.of<HomePageProvider>(context);
 
-    Size size = MediaQuery.of(context).size;
-    double iconSize = size.width * 0.02;
-    double darwerCollapseWidth = size.width * 0.05;
+    double iconSize = drawerCollapseWidth * 0.45;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 15.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: deepBlue,
@@ -126,21 +127,23 @@ class NavigationLink extends StatelessWidget {
         onPressed: () {
           provider.setPageIndex(index);
         },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            //TODO: fix this
-            SizedBox(width: (darwerCollapseWidth) / 8),
-            Icon(icon, color: Colors.white, size: iconSize),
-            showText ? const SizedBox(width: 20) : const SizedBox.shrink(),
-            showText
-                ? Text(
-                    text,
-                    style: const TextStyle(color: Colors.white),
-                  )
-                : const SizedBox.shrink(),
-          ],
-        ),
+        child: Container(
+            height: 45,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                SizedBox(width: (drawerCollapseWidth - iconSize) / 4),
+                Icon(icon, color: Colors.white, size: iconSize),
+                showText ? const SizedBox(width: 20) : const SizedBox.shrink(),
+                showText
+                    ? Text(
+                        text,
+                        style: const TextStyle(color: Colors.white),
+                      )
+                    : const SizedBox.shrink(),
+              ],
+            )),
       ),
     );
   }
