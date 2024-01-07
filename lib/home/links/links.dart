@@ -16,7 +16,7 @@ class LinksPage extends StatelessWidget {
           size.width * 0.2, size.height * 0.2, size.width * 0.2, 0),
       child: const Column(
         children: [
-          Link(Icons.email, 'rickyzhuang2003@berkeley.edu'),
+          Link(Icons.email, 'rickyzhuang2003[at]berkeley.edu'),
           Link(
             Bootstrap.linkedin,
             'https://www.linkedin.com/in/haojun-zhuang-614964220/',
@@ -24,7 +24,7 @@ class LinksPage extends StatelessWidget {
           ),
           Link(
             Bootstrap.github,
-            'https://github.com/Hogean',
+            'https://github.com/haojunzhuang',
             clickable: true,
           ),
         ],

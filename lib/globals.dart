@@ -60,6 +60,14 @@ TextStyle body = GoogleFonts.lora(
   ),
 );
 
+TextStyle bodyBold = GoogleFonts.lora(
+  textStyle: const TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  ),
+);
+
 TextStyle bodyHyperlink = GoogleFonts.lora(
   textStyle: const TextStyle(
     fontSize: 20,

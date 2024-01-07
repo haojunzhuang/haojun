@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:me/globals.dart';
-import 'package:me/showcase/robot/simulation.dart';
 
 class ShowcasePage extends StatelessWidget {
   const ShowcasePage({super.key});

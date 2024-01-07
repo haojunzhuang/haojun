@@ -23,7 +23,7 @@ class MyselfPage extends StatelessWidget {
             height: size.width * 0.12,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(size.width * 0.02),
-              image: DecorationImage(
+              image: const DecorationImage(
                 image: AssetImage('assets/images/myself2.jpeg'),
                 fit: BoxFit.fill,
               ),

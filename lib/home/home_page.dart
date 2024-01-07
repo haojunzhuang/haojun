@@ -3,8 +3,8 @@ import 'package:me/globals.dart';
 import 'package:me/home/home_page_provider.dart';
 import 'package:me/home/links/links.dart';
 import 'package:me/home/myself/myself.dart';
+import 'package:me/rankings/rankings.dart';
 import 'package:me/showcase/projects.dart';
-import 'package:me/showcase/showcase_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -25,6 +25,7 @@ class HomePage extends StatelessWidget {
                 MyselfPage(),
                 ProjectsPage(),
                 LinksPage(),
+                RankingsPage(),
               ],
             ),
           )
@@ -84,6 +85,13 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               NavigationLink(
                 text: 'Links',
                 icon: Icons.link_outlined,
+                showText: provider.showText,
+                drawerCollapseWidth: drawerCollapseWidth,
+                index: 2,
+              ),
+              NavigationLink(
+                text: 'Notes',
+                icon: Icons.notes,
                 showText: provider.showText,
                 drawerCollapseWidth: drawerCollapseWidth,
                 index: 2,
