@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:me/globals.dart';
 
 class RankingsPage extends StatelessWidget {
   const RankingsPage({super.key});
@@ -8,12 +9,12 @@ class RankingsPage extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    return const Scaffold(
-        backgroundColor: Colors.blueAccent,
+    return  Scaffold(
+        backgroundColor: Colors.white,
         body: Padding(
-            padding: EdgeInsets.all(10.0), 
-            child: SingleChildScrollView(
-
+            padding: EdgeInsets.all(height*.1), 
+            child: SingleChildScrollView( child:
+                Text('Under Construction', style: body,)
             )));
   }
 }

@@ -94,7 +94,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                 icon: Icons.notes,
                 showText: provider.showText,
                 drawerCollapseWidth: drawerCollapseWidth,
-                index: 2,
+                index: 3,
               ),
             ]),
       ),
